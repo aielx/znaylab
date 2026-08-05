@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { site } from '../../content/site';
+
+const provider = site.paymentProvider || 'платёжного провайдера';
+const L = site.legal;
+---
+
+<BaseLayout
+  title="Оплата и возврат — ЗнайЛаб"
+  description="Способы оплаты занятий (картой МИР, Visa, MasterCard, по СБП), условия и порядок возврата средств — образовательный центр ЗнайЛаб."
+  path="/oplata"
+>
+  <Header />
+  <main id="main" class="section">
+    <div class="container legal">
+      <h1>Оплата и возврат</h1>
+      <p class="legal__updated">Как оплатить занятия онлайн и вернуть деньги, если планы изменились.</p>
+
+      <h2>Способы оплаты</h2>
+      <p>Мы принимаем онлайн-оплату через {provider}:</p>
+      <ul>
+        <li>банковские карты платёжных систем <strong>МИР</strong>, <strong>Visa</strong>, <strong>MasterCard</strong>;</li>
+        <li>Система быстрых платежей (<strong>СБП</strong>) — по QR-коду или ссылке.</li>
+      </ul>
+      <div class="ps" aria-label="Принимаемые платёжные системы">
+        <!-- МИР -->
+        <span class="ps__logo ps__logo--mir" role="img" aria-label="МИР">МИР</span>
+        <!-- Visa -->
+        <span class="ps__logo ps__logo--visa" role="img" aria-label="Visa">VISA</span>
+        <!-- MasterCard -->
+        <span class="ps__logo ps__logo--mc" role="img" aria-label="MasterCard">
+          <span aria-hidden="true">●</span><span aria-hidden="true">●</span>
+        </span>
+      </div>
+
+      <h2>Как это работает</h2>
+      <ol class="steps">
+        <li>Нажимаете «Оплатить занятия» и переходите на защищённую страницу оплаты {provider}.</li>
+        <li>Вводите данные карты и проходите проверку 3D-Secure (код из SMS от банка).</li>
+        <li>После успешной оплаты возвращаетесь на сайт — на страницу подтверждения. Кассовый чек придёт на ваш e-mail.</li>
+      </ol>
+      <p class="legal__note">
+        Реквизиты карты вводятся на стороне {provider} по защищённому соединению. Сайт ЗнайЛаб не получает,
+        не хранит и не обрабатывает данные банковских карт.
+      </p>
+
+      <h2>Возврат средств</h2>
+      <p>
+        По ст. 32 Закона РФ «О защите прав потребителей» вы можете отказаться от услуг в любое время.
+        Вернём стоимость неиспользованных занятий за вычетом фактически понесённых расходов
+        (проведённые занятия, аренда, материалы).
+      </p>
+      <ul>
+        <li>Срок возврата — 10 рабочих дней с момента заявления.</li>
+        <li>Деньги возвращаются на ту же карту, с которой производилась оплата.</li>
+        <li>Заявление — на <a href={`mailto:${L.email}`}>{L.email}</a> или по телефону <a href={site.phoneHref}>{site.phoneDisplay}</a>.</li>
+      </ul>
+      <p>
+        Подробные условия — в <a href="/oferta">публичной оферте</a>, раздел 4.
+        Реквизиты для оплаты по счёту — на странице <a href="/rekvizity">«Реквизиты»</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal { max-width: 780px; }
+  .legal h1 { margin-bottom: 8px; }
+  .legal__updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+  .legal h2 { font-size: 22px; margin: 32px 0 12px; }
+  .legal p { color: var(--muted); margin-bottom: 10px; }
+  .legal a { color: var(--blue-dark); }
+  .legal ul { padding-left: 22px; display: grid; gap: 6px; color: var(--muted); margin-bottom: 12px; }
+  .legal__note {
+    font-size: 14px;
+    padding: 14px 16px;
+    background: #eff6ff;
+    border-radius: var(--radius-sm);
+    color: var(--blue-dark);
+  }
+
+  .ps { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 8px; }
+  .ps__logo {
+    display: inline-grid;
+    place-items: center;
+    height: 40px;
+    min-width: 64px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .ps__logo--mir { color: #0f754e; font-style: italic; }
+  .ps__logo--visa { color: #1a1f71; letter-spacing: 1px; }
+  .ps__logo--mc { display: inline-flex; gap: -10px; }
+  .ps__logo--mc span {
+    font-size: 30px;
+    line-height: 1;
+  }
+  .ps__logo--mc span:first-child { color: #eb001b; }
+  .ps__logo--mc span:last-child { color: #f79e1b; margin-left: -14px; }
+
+  .steps { padding-left: 22px; display: grid; gap: 8px; color: var(--muted); margin-bottom: 14px; }
+</style>

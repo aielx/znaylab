@@ -51,7 +51,7 @@ const provider = site.paymentProvider || 'платёжного провайде�
 
       <h2>3. Порядок оказания услуг</h2>
       <p>
-        3.1. Занятия проводятся по расписанию, согласованному с администратором, по адресу: {L.legalAddress}.
+        3.1. Занятия проводятся по расписанию, согласованному с администратором, по адресу: {L.actualAddress}.
       </p>
       <p>
         3.2. Перенос и отмена занятия возможны по согласованию с администратором не позднее чем за 12 часов
@@ -108,8 +108,8 @@ const provider = site.paymentProvider || 'платёжного провайде�
         {L.entity}<br />
         {L.inn} · {L.ogrnip}<br />
         Юридический адрес: {L.legalAddress}<br />
-        Р/с {L.checkingAccount} в {L.bankName}<br />
-        БИК {L.bik} · К/с {L.corrAccount}<br />
+        Фактический адрес: {L.actualAddress}<br />
+        {L.checkingAccount && <>Р/с {L.checkingAccount} в {L.bankName}<br /> БИК {L.bik} · К/с {L.corrAccount}<br /></>}
         E-mail: <a href={`mailto:${L.email}`}>{L.email}</a> · Телефон: <a href={site.phoneHref}>{site.phoneDisplay}</a>
       </p>
       <p>

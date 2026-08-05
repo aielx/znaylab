@@ -1,18 +1,23 @@
 ---
 import { site } from '../content/site';
 
+// На главной — чистые якоря (плавный скролл без перезагрузки).
+// На остальных страницах — ведём на главную с якорем (/#prices).
+const isHome = Astro.url.pathname === '/';
+const prefix = isHome ? '' : '/';
+
 const nav = [
-  { href: '#directions', label: 'Направления' },
-  { href: '#why', label: 'Почему мы' },
-  { href: '#reviews', label: 'Отзывы' },
-  { href: '#prices', label: 'Цены' },
-  { href: '#contacts', label: 'Контакты' },
+  { href: `${prefix}#directions`, label: 'Направления' },
+  { href: `${prefix}#why`, label: 'Почему мы' },
+  { href: `${prefix}#reviews`, label: 'Отзывы' },
+  { href: `${prefix}#prices`, label: 'Цены' },
+  { href: `${prefix}#contacts`, label: 'Контакты' },
 ];
 ---
 
 <header class="header" id="top">
   <div class="container header__inner">
-    <a href="#top" class="header__logo" aria-label="ЗнайЛаб — на главную">
+    <a href={`${prefix}#top`} class="header__logo" aria-label="ЗнайЛаб — на главную">
       <img src="/brand/logo.svg" alt="ЗнайЛаб — образовательный центр" width="204" height="60" />
     </a>
 

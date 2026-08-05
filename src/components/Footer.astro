@@ -1,5 +1,9 @@
 ---
 import { site } from '../content/site';
+
+// На главной — чистые якоря (плавный скролл). На остальных страницах — ведём на главную с якорем.
+const isHome = Astro.url.pathname === '/';
+const prefix = isHome ? '' : '/';
 ---
 
 <footer class="footer">
@@ -10,10 +14,10 @@ import { site } from '../content/site';
         <p>Создан на базе образовательного центра <a href={site.parentSite} target="_blank" rel="noopener">«Интеллект»</a>.</p>
       </div>
       <nav class="footer__nav" aria-label="Навигация в подвале">
-        <a href="#directions">Направления</a>
-        <a href="#prices">Цены</a>
-        <a href="#faq">Вопросы</a>
-        <a href="#contacts">Контакты</a>
+        <a href={`${prefix}#directions`}>Направления</a>
+        <a href={`${prefix}#prices`}>Цены</a>
+        <a href={`${prefix}#faq`}>Вопросы</a>
+        <a href={`${prefix}#contacts`}>Контакты</a>
       </nav>
       <div class="footer__contacts">
         <a href={site.phoneHref} class="footer__phone" data-goal="phone">{site.phoneDisplay}</a>
@@ -63,7 +67,13 @@ import { site } from '../content/site';
     font-size: 13.5px;
     color: #94a3b8;
   }
-  .footer__legal-links { display: flex; gap: 20px; }
-  .footer__legal-links a { color: #94a3b8; }
+  .footer__legal-links { display: flex; flex-wrap: wrap; gap: 20px; }
+  .footer__legal-links a {
+    color: #94a3b8;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .footer__legal-links a:hover { color: #e2e8f0; }
   @media (max-width: 860px) { .footer__top { grid-template-columns: 1fr; gap: 26px; } }
 </style>

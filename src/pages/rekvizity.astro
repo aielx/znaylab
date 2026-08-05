@@ -25,10 +25,11 @@ const provider = site.paymentProvider || 'платёжный провайдер'
           <tr><th>ИНН</th><td>{L.inn}</td></tr>
           <tr><th>ОГРНИП</th><td>{L.ogrnip}</td></tr>
           <tr><th>Юридический адрес</th><td>{L.legalAddress}</td></tr>
-          <tr><th>Р/с</th><td>{L.checkingAccount}</td></tr>
-          <tr><th>Банк</th><td>{L.bankName}</td></tr>
-          <tr><th>БИК</th><td>{L.bik}</td></tr>
-          <tr><th>К/с</th><td>{L.corrAccount}</td></tr>
+          <tr><th>Фактический адрес</th><td>{L.actualAddress}</td></tr>
+          {L.checkingAccount && <tr><th>Р/с</th><td>{L.checkingAccount}</td></tr>}
+          {L.bankName && <tr><th>Банк</th><td>{L.bankName}</td></tr>}
+          {L.bik && <tr><th>БИК</th><td>{L.bik}</td></tr>}
+          {L.corrAccount && <tr><th>К/с</th><td>{L.corrAccount}</td></tr>}
           <tr><th>E-mail</th><td><a href={`mailto:${L.email}`}>{L.email}</a></td></tr>
           <tr><th>Телефон</th><td><a href={site.phoneHref}>{site.phoneDisplay}</a></td></tr>
         </tbody>
