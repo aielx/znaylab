@@ -142,9 +142,6 @@ leadForm?.addEventListener('submit', async (e) => {
   if (!validateForm(leadForm)) return;
   showLeadError(false);
   const data = Object.fromEntries(new FormData(leadForm).entries());
-  // Сервисные поля FormSubmit: тема письма + табличный шаблон.
-  data._subject = 'Новая заявка с сайта ЗнайЛаб';
-  data._template = 'table';
   data.page = location.href;
   const submitBtn = leadForm.querySelector('[type="submit"]');
   submitBtn.disabled = true;
@@ -153,9 +150,11 @@ leadForm?.addEventListener('submit', async (e) => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), LEAD_TIMEOUT);
       try {
+        // text/plain обходят CORS preflight: script.google.com не отвечает на OPTIONS.
+        // Apps Script всё равно парсит JSON из postData.contents.
         const res = await fetch(window.__leadWebhook, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data),
           signal: controller.signal,
         });

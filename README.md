@@ -2,6 +2,8 @@
 
 Одностраничный сайт на [Astro](https://astro.build). Статика: собирается в HTML/CSS/JS, деплоится на любой статический хостинг (Nginx, Netlify, Vercel, GitHub Pages, Yandex Cloud Object Storage).
 
+> 📖 **Полное руководство по публикации на GitHub Pages с доменом и приёмом заявок через Google Sheets — в [`DEPLOYMENT.md`](./DEPLOYMENT.md).** Там пошагово: публикация, привязка домена `znaylab.ru` (DNS в Reg.ru), настройка формы заявки, решение проблем.
+
 ## Быстрый старт
 
 ```bash

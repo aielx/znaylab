@@ -49,8 +49,7 @@ export const site = {
   // Ссылка на оплату в CRM. После оплаты CRM должна вернуть пользователя на сайт:
   // успех — https://<домен>/oplata/uspekh, ошибка — https://<домен>/oplata/oshibka
   paymentUrl: '',
-  // URL webhook для заявок. Сейчас — FormSubmit (e-mail на aiexml@internet.ru).
-  // Endpoint /ajax/ возвращает JSON без редиректа (подходит для fetch из формы).
-  // Первая отправка требует подтверждения e-mail (см. README).
-  leadWebhook: 'https://formsubmit.co/ajax/aiexml@internet.ru',
+  // URL webhook для заявок — Google Apps Script (заявки в Google Таблицу + e-mail).
+  // script.google.com не блокируется из РФ. doPost() в Apps Script обрабатывает запрос.
+  leadWebhook: 'https://script.google.com/macros/s/AKfycbyyvRwc3d3cnVgB67IZe_IPUPJgbDZyigKcTVoqQGnyYQi3_CxbDRbyNYxC0zsR1Wy0/exec',
 };
