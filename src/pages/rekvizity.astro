@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../content/site';
+
+const L = site.legal;
+const provider = site.paymentProvider || 'платёжный провайдер';
+---
+
+<BaseLayout
+  title="Реквизиты — ЗнайЛаб"
+  description="Реквизиты образовательного центра ЗнайЛаб для оплаты занятий и заключения договора."
+  path="/rekvizity"
+>
+  <Header />
+  <main id="main" class="section">
+    <div class="container legal">
+      <h1>Реквизиты</h1>
+      <p class="legal__updated">Для оплаты по реквизитам, заключения договора и официальной переписки.</p>
+
+      <table class="req">
+        <tbody>
+          <tr><th>Наименование</th><td>{L.entity}</td></tr>
+          <tr><th>ИНН</th><td>{L.inn}</td></tr>
+          <tr><th>ОГРНИП</th><td>{L.ogrnip}</td></tr>
+          <tr><th>Юридический адрес</th><td>{L.legalAddress}</td></tr>
+          <tr><th>Р/с</th><td>{L.checkingAccount}</td></tr>
+          <tr><th>Банк</th><td>{L.bankName}</td></tr>
+          <tr><th>БИК</th><td>{L.bik}</td></tr>
+          <tr><th>К/с</th><td>{L.corrAccount}</td></tr>
+          <tr><th>E-mail</th><td><a href={`mailto:${L.email}`}>{L.email}</a></td></tr>
+          <tr><th>Телефон</th><td><a href={site.phoneHref}>{site.phoneDisplay}</a></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Об оплате</h2>
+      <p>
+        Онлайн-оплата занятий принимается через {provider} с использованием защищённого протокола 3D-Secure.
+        Подробно о способах оплаты и возврате — на странице
+        <a href="/oplata">«Оплата и возврат»</a>. Условия оказания услуг — в
+        <a href="/oferta">публичной оферте</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal { max-width: 780px; }
+  .legal h1 { margin-bottom: 8px; }
+  .legal__updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+  .legal h2 { font-size: 22px; margin: 34px 0 12px; }
+  .legal p { color: var(--muted); }
+  .req {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  .req th,
+  .req td {
+    text-align: left;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .req th {
+    width: 200px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--surface);
+  }
+  .req td { color: var(--text); font-weight: 600; word-break: break-word; }
+  .req a { color: var(--blue-dark); }
+  @media (max-width: 620px) {
+    .req th { width: 130px; font-size: 14px; }
+    .req td { font-size: 15px; }
+  }
+</style>

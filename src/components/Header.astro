@@ -1,0 +1,133 @@
+---
+import { site } from '../content/site';
+
+const nav = [
+  { href: '#directions', label: 'Направления' },
+  { href: '#why', label: 'Почему мы' },
+  { href: '#reviews', label: 'Отзывы' },
+  { href: '#prices', label: 'Цены' },
+  { href: '#contacts', label: 'Контакты' },
+];
+---
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a href="#top" class="header__logo" aria-label="ЗнайЛаб — на главную">
+      <img src="/brand/logo.svg" alt="ЗнайЛаб — образовательный центр" width="204" height="60" />
+    </a>
+
+    <nav class="header__nav" aria-label="Основная навигация">
+      <button class="header__burger" aria-expanded="false" aria-controls="nav-menu" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="header__menu" id="nav-menu" role="list">
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__phone" href={site.phoneHref} data-goal="phone">{site.phoneDisplay}</a>
+      {site.paymentUrl && (
+        <a class="btn btn--outline header__cta-pay" href={site.paymentUrl} target="_blank" rel="noopener" data-goal="cta_pay">Оплатить занятия</a>
+      )}
+      <button class="btn btn--primary" type="button" data-open-lead data-goal="cta_signup">Записаться</button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgb(255 255 255 / 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 76px;
+    max-width: 1320px;
+  }
+  .header__logo img { height: 44px; width: auto; }
+  .header__nav { margin-left: auto; }
+  .header__menu {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .header__menu a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+  .header__menu a:hover { background: #eff4ff; color: var(--blue-dark); }
+  .header__menu a.is-active { color: var(--blue-dark); background: #eff4ff; }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header__phone {
+    font-weight: 800;
+    font-size: 15.5px;
+    color: var(--text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .header__phone:hover { color: var(--blue-dark); }
+  .header__actions .btn { padding: 11px 18px; font-size: 14.5px; }
+  .header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+  }
+  .header__burger span {
+    width: 24px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--text);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  @media (max-width: 1280px) {
+    .header__phone { display: none; }
+  }
+  @media (max-width: 1140px) {
+    .header__cta-pay { display: none; }
+  }
+  @media (max-width: 1080px) {
+    .header__menu { display: none; }
+    .header__burger { display: flex; }
+    .header__nav { margin-left: auto; }
+    .header__menu.is-open {
+      display: flex;
+      position: absolute;
+      top: 76px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 20px 20px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .header__menu.is-open a { padding: 13px 12px; font-size: 17px; }
+  }
+  @media (max-width: 900px) {
+    .header__inner { gap: 12px; }
+  }
+</style>

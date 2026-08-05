@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Directions from '../components/Directions.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Reviews from '../components/Reviews.astro';
+import Schedule from '../components/Schedule.astro';
+import Faq from '../components/Faq.astro';
+import Contacts from '../components/Contacts.astro';
+import Footer from '../components/Footer.astro';
+import LeadForm from '../components/LeadForm.astro';
+import StickyCta from '../components/StickyCta.astro';
+import BackToTop from '../components/BackToTop.astro';
+import { faq } from '../content/faq';
+import { reviews } from '../content/reviews';
+import { site } from '../content/site';
+
+const title = 'ЗнайЛаб — детский образовательный центр | Создан на базе «Интеллекта»';
+const description =
+  'ЗнайЛаб — образовательный центр, созданный на базе «Интеллекта»: 15 лет опыта, 1000+ учеников, 40 направлений для детей 2–17 лет. Подготовка к школе, ОГЭ/ЕГЭ, ИТ-школа, логопед, творческие мастерские.';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const reviewSchema = reviews.map((r) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  itemReviewed: { '@type': 'EducationalOrganization', name: 'ЗнайЛаб — образовательный центр' },
+  author: { '@type': 'Person', name: r.name },
+  reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+  reviewBody: r.text,
+}));
+---
+
+<BaseLayout title={title} description={description} jsonLdExtra={[faqSchema, ...reviewSchema]}>
+  <Header />
+  <main id="main">
+    <Hero />
+    <Stats />
+    <Directions />
+    <WhyUs />
+    <Reviews />
+    <Schedule />
+    <Faq />
+    <Contacts />
+  </main>
+  <Footer />
+  <LeadForm />
+  <StickyCta />
+  <BackToTop />
+  <script define:vars={{ leadWebhook: site.leadWebhook, metricaId: site.metricaId }}>
+    window.__leadWebhook = leadWebhook;
+    window.__metricaId = metricaId;
+  </script>
+</BaseLayout>

@@ -1,0 +1,117 @@
+---
+import Photo from './Photo.astro';
+
+const reasons = [
+  {
+    title: 'Команда профессионалов',
+    text: 'Педагоги с профильным образованием и многолетним стажем, программы — на базе 15-летнего опыта центра «Интеллект».',
+    icon: 'M12 12a4 4 0 100-8 4 4 0 000 8zm-7 8a7 7 0 0114 0',
+  },
+  {
+    title: 'Игровые методики',
+    text: 'Современные программы и игровые форматы: дети учатся с интересом и не устают — результат приходит без давления.',
+    icon: 'M12 2l2.4 6.2H21l-5.2 4.1 1.9 6.5L12 15l-5.7 3.8 1.9-6.5L3 8.2h6.6L12 2z',
+  },
+  {
+    title: 'Безопасность и спокойствие',
+    text: 'Оборудованные классы с видеонаблюдением. Вы всегда знаете, где ваш ребёнок и чем он занят.',
+    icon: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z',
+  },
+  {
+    title: 'Домашняя атмосфера + дисциплина',
+    text: 'Тепло и внимательно к каждому ребёнку — и при этом порядок, расписание и видимый результат.',
+    icon: 'M3 11l9-8 9 8v10a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1V11z',
+  },
+  {
+    title: 'Праздники и мероприятия',
+    text: 'Квесты, мастер-классы, дни рождения и семейные праздники — центр живёт не только занятиями.',
+    icon: 'M12 3v3m0 12v3m9-9h-3M6 12H3m14.5-6.5l-2 2m-7 7l-2 2m11 0l-2-2m-7-7l-2-2',
+  },
+];
+
+const gallery = [
+  'atmosphere-pizza-class',
+  'english-teens-laughing',
+  'it-boy-laptop',
+  'games-chess-boys',
+  'art-group-paintings',
+  'games-maze-girls',
+  'english-finger-puppets',
+  'atmosphere-girls-playroom',
+  'art-kid-floor-painting',
+];
+---
+
+<section class="section section--tint" id="why">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Почему ЗнайЛаб</span>
+      <h2>Место, куда дети ходят с удовольствием</h2>
+      <p class="lead">Мы соединили домашнюю атмосферу с серьёзным подходом к результату — подход, проверенный 15 годами работы «Интеллекта».</p>
+    </div>
+
+    <div class="why__grid">
+      {reasons.map((r, i) => (
+        <div class:list={['why__item', 'reveal']} style={`transition-delay: ${(i % 3) * 70}ms`}>
+          <div class="why__icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d={r.icon} />
+            </svg>
+          </div>
+          <div>
+            <h3>{r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="why__gallery reveal" aria-label="Фотографии с занятий">
+      {gallery.map((name) => (
+        <div class="why__shot">
+          <Photo
+            name={name}
+            ratio="3 / 4"
+            sizes="(max-width: 720px) 44vw, 220px"
+            position="center 30%"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 32px;
+  }
+  .why__item { display: flex; gap: 16px; align-items: flex-start; }
+  .why__icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--grad-brand);
+    color: #fff;
+  }
+  .why__item h3 { font-size: 18px; margin-bottom: 6px; }
+  .why__item p { font-size: 15px; color: var(--muted); }
+
+  .why__gallery {
+    margin-top: clamp(36px, 5vw, 60px);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 220px;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+  }
+  .why__shot { scroll-snap-align: start; border-radius: 16px; overflow: hidden; }
+
+  @media (max-width: 900px) { .why__grid { grid-template-columns: 1fr; gap: 22px; } }
+</style>

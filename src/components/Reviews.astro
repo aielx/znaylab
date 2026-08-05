@@ -1,0 +1,110 @@
+---
+import { reviews } from '../content/reviews';
+import { site } from '../content/site';
+---
+
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="kicker">Отзывы</span>
+      <h2>Что говорят родители</h2>
+      <p class="lead">Отзывы клиентов центра «Интеллект» — на базе программ и наработок которого создан «ЗнайЛаб».</p>
+    </div>
+
+    <div class="reviews__carousel reveal" tabindex="0" role="region" aria-label="Карусель отзывов — листайте горизонтально">
+      {reviews.map((r) => (
+        <figure class="reviews__card card">
+          <div class="reviews__stars" role="img" aria-label={`Оценка ${r.rating} из 5`}>
+            {Array.from({ length: r.rating }).map(() => (
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2l2.4 6.2H21l-5.2 4.1 1.9 6.5L12 15l-5.7 3.8 1.9-6.5L3 8.2h6.6L12 2z" fill="#f59e0b"/>
+              </svg>
+            ))}
+          </div>
+          <blockquote class="reviews__text">{r.text}</blockquote>
+          <figcaption>
+            <span class="reviews__avatar" aria-hidden="true">{r.name[0]}</span>
+            <span>
+              <span class="reviews__name">{r.name}</span>
+              <span class="reviews__meta">{r.meta}</span>
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="reviews__more">
+      <a
+        class="reviews__badge"
+        href={site.yandexMaps}
+        target="_blank"
+        rel="noopener"
+        data-goal="reviews_yandex"
+        title="Открыть отзывы на Яндекс.Картах"
+      >
+        <iframe
+          src={`https://yandex.ru/sprav/widget/rating-badge/${site.yandexOrgId}?type=rating`}
+          width="150"
+          height="50"
+          frameborder="0"
+          loading="lazy"
+          title="Рейтинг центра на Яндекс.Картах"
+        ></iframe>
+      </a>
+      <a href={site.yandexMaps} target="_blank" rel="noopener" data-goal="reviews_yandex">
+        Все отзывы на Яндекс.Картах →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews__carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(300px, 380px);
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 6px 4px 16px;
+  }
+  .reviews__card {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px;
+  }
+  .reviews__stars { display: flex; gap: 3px; }
+  .reviews__text { font-size: 15.5px; color: var(--text); flex-grow: 1; }
+  .reviews__card figcaption { display: flex; align-items: center; gap: 12px; }
+  .reviews__avatar {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .reviews__name { display: block; font-weight: 700; }
+  .reviews__meta { display: block; font-size: 13.5px; color: var(--muted); }
+  .reviews__more {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+  }
+  .reviews__badge {
+    display: inline-block;
+    line-height: 0; /* убирает лишний отступ под iframe */
+    border-radius: 8px;
+    transition: transform 0.15s ease;
+  }
+  .reviews__badge:hover { transform: translateY(-2px); }
+  .reviews__badge iframe { display: block; border: 0; }
+</style>

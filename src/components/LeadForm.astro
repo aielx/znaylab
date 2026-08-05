@@ -1,0 +1,83 @@
+---
+import { directions } from '../content/directions';
+import { site } from '../content/site';
+---
+
+<dialog class="lead" id="lead-dialog" aria-labelledby="lead-title">
+  <form class="lead__form" id="lead-form" method="dialog" novalidate>
+    <button class="lead__close" type="button" data-close-lead aria-label="Закрыть форму">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <h3 id="lead-title">Записаться на занятие</h3>
+    <p class="lead__sub">Оставьте заявку — администратор перезвонит, ответит на вопросы и подберёт время.</p>
+
+    <div class="field">
+      <label for="lead-name">Ваше имя</label>
+      <input id="lead-name" name="parentName" type="text" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться" />
+      <span class="error">Укажите имя</span>
+    </div>
+    <div class="field">
+      <label for="lead-phone">Телефон</label>
+      <input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 (___) ___-__-__" data-phone-mask />
+      <span class="error">Укажите телефон полностью</span>
+    </div>
+    <div class="field">
+      <label for="lead-age">Возраст ребёнка</label>
+      <input id="lead-age" name="childAge" type="number" inputmode="numeric" min="2" max="17" required placeholder="Например, 7" />
+      <span class="error">Укажите возраст от 2 до 17 лет</span>
+    </div>
+    <div class="field">
+      <label for="lead-direction">Направление</label>
+      <select id="lead-direction" name="direction" required>
+        <option value="" disabled selected>Выберите направление</option>
+        {directions.map((d) => <option value={d.id}>{d.title}</option>)}
+      </select>
+      <span class="error">Выберите направление</span>
+    </div>
+    <label class="consent">
+      <input type="checkbox" name="consent" required />
+      <span>Соглашаюсь с <a href="/politika">политикой обработки персональных данных</a> и <a href="/oferta">офертой</a></span>
+    </label>
+    <button class="btn btn--primary btn--lg lead__submit" type="submit" data-goal="lead_submit">Отправить заявку</button>
+    <div class="form-success" role="status">
+      Заявка отправлена! Мы перезвоним вам в ближайшее время.
+    </div>
+    <div class="form-error" role="alert">
+      Не удалось отправить заявку. Позвоните нам <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      или напишите в <a href={site.max} target="_blank" rel="noopener">MAX</a> — мы на связи.
+    </div>
+  </form>
+</dialog>
+
+<style>
+  .lead {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(480px, calc(100vw - 32px));
+    max-height: calc(100dvh - 40px);
+    border: 0;
+    border-radius: 22px;
+    padding: 0;
+    box-shadow: 0 40px 90px -20px rgb(15 23 42 / 0.45);
+    overflow-y: auto;
+  }
+  .lead::backdrop { background: rgb(15 23 42 / 0.55); backdrop-filter: blur(3px); }
+  .lead__form { position: relative; padding: 32px 28px 28px; }
+  .lead__sub { margin: 8px 0 22px; color: var(--muted); font-size: 15px; }
+  .lead__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--muted);
+  }
+  .lead__close:hover { background: var(--bg); color: var(--text); }
+  .lead__submit { width: 100%; }
+</style>

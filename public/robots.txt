@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /oplata/uspekh
+Disallow: /oplata/oshibka
+
+Sitemap: https://znaylab.ru/sitemap-index.xml

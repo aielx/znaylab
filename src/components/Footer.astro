@@ -1,0 +1,69 @@
+---
+import { site } from '../content/site';
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="/brand/logo-mono.svg" alt="ЗнайЛаб — образовательный центр" width="204" height="60" />
+        <p>Создан на базе образовательного центра <a href={site.parentSite} target="_blank" rel="noopener">«Интеллект»</a>.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="#directions">Направления</a>
+        <a href="#prices">Цены</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="footer__contacts">
+        <a href={site.phoneHref} class="footer__phone" data-goal="phone">{site.phoneDisplay}</a>
+        <p>{site.addressShort}</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>{site.legal.entity} · {site.legal.inn} · {site.legal.ogrnip}</p>
+      <p class="footer__legal-links">
+        <a href="/oplata">Оплата и возврат</a>
+        <a href="/oferta">Публичная оферта</a>
+        <a href="/politika">Политика конфиденциальности</a>
+        <a href="/rekvizity">Реквизиты</a>
+      </p>
+      <p>© {new Date().getFullYear()} ЗнайЛаб. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #0b1220;
+    color: #cbd5e1;
+    padding-block: clamp(40px, 5vw, 64px) 28px;
+  }
+  .footer a { color: #e2e8f0; }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .footer__brand img { height: 40px; width: auto; filter: brightness(0) invert(1); margin-bottom: 14px; }
+  .footer__brand p { font-size: 14.5px; max-width: 32ch; }
+  .footer__nav { display: flex; flex-direction: column; gap: 10px; }
+  .footer__nav a { text-decoration: none; font-weight: 600; font-size: 15px; }
+  .footer__nav a:hover { color: #5eead4; }
+  .footer__phone { display: block; font-size: 20px; font-weight: 800; text-decoration: none; margin-bottom: 8px; }
+  .footer__contacts p { font-size: 14.5px; }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    justify-content: space-between;
+    padding-top: 24px;
+    font-size: 13.5px;
+    color: #94a3b8;
+  }
+  .footer__legal-links { display: flex; gap: 20px; }
+  .footer__legal-links a { color: #94a3b8; }
+  @media (max-width: 860px) { .footer__top { grid-template-columns: 1fr; gap: 26px; } }
+</style>

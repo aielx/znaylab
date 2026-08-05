@@ -1,0 +1,17 @@
+{
+  "name": "ЗнайЛаб — образовательный центр",
+  "short_name": "ЗнайЛаб",
+  "description": "Детский образовательный центр, созданный на базе «Интеллекта»: 15 лет опыта, 40 направлений для детей 2–17 лет.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fc",
+  "theme_color": "#2563eb",
+  "categories": ["education", "kids"],
+  "icons": [
+    { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

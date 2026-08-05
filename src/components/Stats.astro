@@ -1,0 +1,54 @@
+---
+// Блок «Доверие в цифрах». Счётчики анимируются из public/js/main.js.
+// В разметке сразу ставим финальное значение — без JS число остаётся корректным;
+// JS при инициализации сбросит в 0 и анимирует (см. main.js → initCounters).
+const fmt = (n, decimals = 0) =>
+  n.toLocaleString('ru-RU', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+const stats = [
+  { value: 15, suffix: '', label: 'лет опыта в основе программ' },
+  { value: 1000, suffix: '+', label: 'учеников за эти годы' },
+  { value: 40, suffix: '', label: 'направлений занятий' },
+  { value: 4.8, suffix: '', label: 'рейтинг на Яндекс.Картах', decimals: 1 },
+];
+---
+
+<section class="stats" aria-label="Опыт в цифрах">
+  <div class="container">
+    <div class="stats__grid reveal">
+      {stats.map((s) => (
+        <div class="stats__item">
+          <div class="stats__value">
+            <span class="stats__num" data-count={s.value} data-decimals={s.decimals ?? 0}>{fmt(s.value, s.decimals)}</span>{s.suffix}
+          </div>
+          <div class="stats__label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+    <p class="stats__caption">— опыт и наработки образовательного центра «Интеллект»</p>
+  </div>
+</section>
+
+<style>
+  .stats { padding-block: clamp(36px, 5vw, 56px); background: var(--surface); border-block: 1px solid var(--line); }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  .stats__value {
+    font-size: clamp(34px, 4.6vw, 52px);
+    font-weight: 800;
+    line-height: 1;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stats__label { margin-top: 8px; color: var(--muted); font-size: 15px; }
+  .stats__caption { margin-top: 18px; text-align: center; color: var(--muted); font-size: 14.5px; }
+  @media (max-width: 720px) {
+    .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px 12px; }
+  }
+</style>

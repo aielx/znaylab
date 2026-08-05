@@ -1,0 +1,136 @@
+---
+import '../styles/global.css';
+import { site } from '../content/site';
+import CookieNotice from '../components/CookieNotice.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Путь страницы для canonical, например '/' или '/politika' */
+  path?: string;
+  /** Дополнительный JSON-LD (FAQPage, Review) — вставляется в <head> */
+  jsonLdExtra?: object | object[];
+}
+
+const { title, description, path = '/', jsonLdExtra } = Astro.props;
+const canonical = new URL(path, Astro.site ?? 'https://znaylab.ru').href;
+const ogImage = new URL('/images/og-image.jpg', Astro.site ?? 'https://znaylab.ru').href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['EducationalOrganization', 'LocalBusiness'],
+  name: 'ЗнайЛаб — образовательный центр',
+  alternateName: 'Образовательный центр «Интеллект»',
+  description,
+  url: canonical,
+  telephone: '+79015606465',
+  email: site.legal.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'RU',
+    addressRegion: 'Московская область',
+    addressLocality: 'Ликино-Дулёво',
+    streetAddress: 'ул. Ленина, 3, ТД «Дулёво», 2 этаж',
+  },
+  openingHours: ['Mo-Fr 14:00-20:00'],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '14:00',
+      closes: '20:00',
+    },
+  ],
+  // Выходные дни — по предварительной записи, когда идут занятия.
+  specialOpeningHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Saturday', 'Sunday'],
+    description: 'По предварительной записи, при наличии занятий.',
+  },
+  sameAs: [site.parentSite],
+  image: ogImage,
+  priceRange: '₽₽',
+};
+
+const jsonLd = [orgSchema, ...(jsonLdExtra ? (Array.isArray(jsonLdExtra) ? jsonLdExtra : [jsonLdExtra]) : [])];
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ЗнайЛаб" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="color-scheme" content="light" />
+    <meta name="apple-mobile-web-app-title" content="ЗнайЛаб" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/brand/icon-512.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="preload" href="/fonts/manrope-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-cyrillic-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    {site.metricaId && <link rel="preconnect" href="https://mc.yandex.ru" crossorigin />}
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {site.metricaId && (
+      <script
+        is:inline
+        set:html={`
+          (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0];
+          k.async=1;k.src=r;a.parentNode.insertBefore(k,a)})
+          (window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+          ym(${site.metricaId},'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+        `}
+      />
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <slot />
+    <CookieNotice />
+    <script src="/js/main.js" type="module"></script>
+    <noscript>
+      <style>
+        /* Без JS раскрываем мобильное меню (бургер неработоспособен) */
+        @media (max-width: 1080px) {
+          .header__menu {
+            display: flex !important;
+            position: static !important;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px 0 4px !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            border: 0 !important;
+          }
+          .header__burger { display: none !important; }
+        }
+        /* Кнопки, открывающие только модалку через JS, без JS прячем —
+           CTA «Записаться» дублируется телефоном и блоком контактов. */
+        [data-open-lead] { display: none !important; }
+        /* Модалку без JS не показать — форма недоступна; анимации reveal не сработают */
+        .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+  </body>
+</html>

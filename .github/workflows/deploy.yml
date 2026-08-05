@@ -1,0 +1,56 @@
+# Сборка и публикация лендинга «ЗнайЛаб» на GitHub Pages.
+# Настройка репозитория: Settings → Pages → Source = "GitHub Actions".
+# Кастомный домен znaylab.ru подключается в Settings → Pages → Custom domain
+# (запись CNAME/A настраивается у регистратора домена; включить Enforce HTTPS).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Не гонять параллельные деплои — новый запуск отменяет предыдущий.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Astro
+        # SITE_URL/SITE_BASE не заданы → дефолт https://znaylab.ru + canonical для custom domain.
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

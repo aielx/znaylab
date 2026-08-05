@@ -1,0 +1,32 @@
+---
+// Sticky-панель CTA внизу экрана — только на мобильных
+import { site } from '../content/site';
+---
+
+<div class="sticky-cta" role="region" aria-label="Быстрые действия">
+  {site.paymentUrl && (
+    <a class="btn btn--outline" href={site.paymentUrl} target="_blank" rel="noopener" data-goal="cta_pay">Оплатить занятия</a>
+  )}
+  <button class="btn btn--primary" type="button" data-open-lead data-goal="cta_signup">Записаться</button>
+</div>
+
+<style>
+  .sticky-cta {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / 0.94);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+  }
+  .sticky-cta .btn { flex: 1; padding-block: 13px; }
+  @media (max-width: 720px) {
+    .sticky-cta { display: flex; }
+    body { padding-bottom: 74px; }
+  }
+</style>

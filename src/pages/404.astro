@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../content/site';
+
+const title = 'Страница не найдена — ЗнайЛаб';
+const description = 'К сожалению, такой страницы нет. Вернитесь на главную или запишитесь на занятие в образовательный центр ЗнайЛаб.';
+---
+
+<BaseLayout title={title} description={description} path="/404">
+  <main id="main" class="nf">
+    <div class="container nf__inner">
+      <p class="nf__code">404</p>
+      <h1>Похоже, эта страница куда-то убежала</h1>
+      <p class="nf__lead">
+        Возможно, ссылка устарела или в адресе опечатка. Не переживайте — возвращайтесь на главную,
+        мы подобрали для ребёнка целых 40 направлений занятий.
+      </p>
+      <div class="nf__actions">
+        <a class="btn btn--primary btn--lg" href="/">На главную</a>
+        <button class="btn btn--outline btn--lg" type="button" data-open-lead>Записаться на занятие</button>
+      </div>
+      <p class="nf__help">
+        Или позвоните нам: <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding-block: clamp(60px, 10vw, 120px);
+    background:
+      radial-gradient(60% 80% at 85% 10%, rgb(20 184 166 / 0.12), transparent 60%),
+      radial-gradient(50% 60% at 5% 90%, rgb(124 58 237 / 0.08), transparent 60%),
+      var(--bg);
+  }
+  .nf__code {
+    font-size: clamp(80px, 18vw, 160px);
+    font-weight: 800;
+    line-height: 1;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.04em;
+  }
+  .nf__inner h1 { margin-top: 8px; }
+  .nf__lead { margin: 18px auto 0; max-width: 56ch; color: var(--muted); font-size: clamp(16px, 2vw, 19px); }
+  .nf__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 30px; }
+  .nf__help { margin-top: 22px; color: var(--muted); font-size: 15px; }
+  .nf__help a { color: var(--blue-dark); font-weight: 700; }
+</style>

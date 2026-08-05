@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { site } from '../../content/site';
+---
+
+<BaseLayout
+  title="Ошибка оплаты — ЗнайЛаб"
+  description="Платёж не был завершён. Попробуйте ещё раз или свяжитесь с нами."
+  path="/oplata/oshibka"
+>
+  <Header />
+  <main id="main" class="section result">
+    <div class="container result__box card">
+      <div class="result__icon result__icon--err" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <path d="M12 8v5m0 3.5v.5" />
+          <circle cx="12" cy="12" r="9.2" />
+        </svg>
+      </div>
+      <h1>Не получилось завершить оплату</h1>
+      <p>
+        Деньги не списались либо будут возвращены банком автоматически. Попробуйте ещё раз —
+        или позвоните нам, поможем разобраться: <a href={site.phoneHref}>{site.phoneDisplay}</a>.
+      </p>
+      <div class="result__actions">
+        <a class="btn btn--primary btn--lg" href={site.paymentUrl || '/'}>Попробовать снова</a>
+        <a class="btn btn--ghost btn--lg" href="/">На главную</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .result { display: grid; place-items: center; min-height: 50vh; }
+  .result__box { max-width: 560px; margin-inline: auto; padding: 48px 36px; text-align: center; }
+  .result__icon {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+  }
+  .result__icon--err { background: #fef2f2; color: #dc2626; }
+  .result__box h1 { font-size: 30px; margin-bottom: 12px; }
+  .result__box p { color: var(--muted); margin-bottom: 14px; }
+  .result__actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; }
+</style>

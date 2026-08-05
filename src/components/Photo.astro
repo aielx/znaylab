@@ -1,0 +1,70 @@
+---
+import { photos, srcset } from '../content/photos';
+
+interface Props {
+  name: string;
+  /** Соотношение сторон, например '4 / 3'. По умолчанию 4/3 */
+  ratio?: string;
+  /** Соотношение на мобильных (≤720px). По умолчанию = ratio */
+  ratioMobile?: string;
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto';
+  /** object-position, чтобы держать лица в кадре, например 'center 30%' */
+  position?: string;
+  alt?: string;
+}
+
+const {
+  name,
+  ratio = '4 / 3',
+  ratioMobile,
+  sizes = '(max-width: 720px) 100vw, 50vw',
+  class: cls,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  position = 'center center',
+  alt,
+} = Astro.props;
+
+const meta = photos.find((p) => p.name === name);
+if (!meta) throw new Error(`Unknown photo: ${name}`);
+const fallback = `/images/${name}-${meta.widths[meta.widths.length - 1]}.webp`;
+---
+
+<picture
+  class:list={['photo', cls]}
+  style={`--ratio: ${ratio}; --ratio-m: ${ratioMobile ?? ratio};`}
+>
+  <source type="image/avif" srcset={srcset(name, 'avif', meta.widths)} sizes={sizes} />
+  <source type="image/webp" srcset={srcset(name, 'webp', meta.widths)} sizes={sizes} />
+  <img
+    src={fallback}
+    alt={alt ?? meta.alt}
+    width={meta.width}
+    height={meta.height}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    style={`object-position: ${position};`}
+  />
+</picture>
+
+<style>
+  .photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    overflow: hidden;
+  }
+  .photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 720px) {
+    .photo { aspect-ratio: var(--ratio-m); }
+  }
+</style>

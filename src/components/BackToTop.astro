@@ -1,0 +1,40 @@
+---
+// Кнопка «Наверх» — появляется после скролла вниз. Логика в public/js/main.js.
+---
+
+<button class="to-top" type="button" aria-label="Наверх" data-back-to-top hidden>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</button>
+
+<style>
+  .to-top {
+    position: fixed;
+    right: clamp(16px, 3vw, 28px);
+    bottom: clamp(16px, 3vw, 28px);
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--blue-dark);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  /* Атрибут hidden прячет до первого скролла; класс .is-show включает видимость */
+  .to-top.is-show { opacity: 1; transform: none; }
+  .to-top:hover { color: var(--blue); box-shadow: var(--shadow-lg); }
+  /* Не пересекается с мобильной липкой панелью */
+  @media (max-width: 720px) {
+    .to-top { bottom: 86px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .to-top { transition: none; transform: none; }
+  }
+</style>
