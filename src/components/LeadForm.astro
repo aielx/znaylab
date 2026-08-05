@@ -13,6 +13,8 @@ import { site } from '../content/site';
     <h3 id="lead-title">Записаться на занятие</h3>
     <p class="lead__sub">Оставьте заявку — администратор перезвонит, ответит на вопросы и подберёт время.</p>
 
+    <!-- Анти-спам honeypot: боты заполняют, люди не видят. Отправляется как _honey в FormSubmit. -->
+    <input type="text" name="_honey" class="lead__honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <div class="field">
       <label for="lead-name">Ваше имя</label>
       <input id="lead-name" name="parentName" type="text" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться" />
@@ -80,4 +82,13 @@ import { site } from '../content/site';
   }
   .lead__close:hover { background: var(--bg); color: var(--text); }
   .lead__submit { width: 100%; }
+  /* Анти-спам honeypot: скрыт от людей, видим для ботов */
+  .lead__honey {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
 </style>

@@ -142,7 +142,9 @@ leadForm?.addEventListener('submit', async (e) => {
   if (!validateForm(leadForm)) return;
   showLeadError(false);
   const data = Object.fromEntries(new FormData(leadForm).entries());
-  data.type = 'lead';
+  // Сервисные поля FormSubmit: тема письма + табличный шаблон.
+  data._subject = 'Новая заявка с сайта ЗнайЛаб';
+  data._template = 'table';
   data.page = location.href;
   const submitBtn = leadForm.querySelector('[type="submit"]');
   submitBtn.disabled = true;
@@ -153,7 +155,7 @@ leadForm?.addEventListener('submit', async (e) => {
       try {
         const res = await fetch(window.__leadWebhook, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(data),
           signal: controller.signal,
         });
