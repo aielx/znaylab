@@ -9,7 +9,7 @@ export const site = {
   phoneDisplay: '+7 901 560-64-65',
   phoneHref: 'tel:+79015606465',
   // Основной мессенджер — MAX. Впишите ссылку на аккаунт/чат (из MAX: аватар → QR → «Поделиться»)
-  max: 'https://max.ru/u/f9LHodD0cOIno-8Sf_P9w7Ws2mClmxAiUntPLhFSZpozN5IdCfpdhIVzOqM',
+  max: 'https://max.ru/u/f9LHodD0cOKPoqvGYdP-HD3MM-1M_8LWWn2lY6IBri7ktIMDHdfvJdGzgzQ',
 
   // Офлайн-адрес филиала упоминаем только в контактах, футере и SEO-разметке
   address: 'г. Ликино-Дулёво, ул. Ленина, 3 (мкр. Дулёво, ТД «Дулёво», 2 этаж)',
