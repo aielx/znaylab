@@ -181,7 +181,7 @@ leadForm?.addEventListener('submit', async (e) => {
 
 // ===== Форма онлайн-оплаты =====
 // Оплата вынесена в CRM: кнопки «Оплатить занятия» — обычные ссылки на site.paymentUrl.
-// CRM возвращает пользователя на /oplata/uspekh или /oplata/oshibka.
+// CRM возвращает пользователя на /thanks или /errorpay.
 
 // ===== Кнопка «Наверх» =====
 const toTop = document.querySelector('[data-back-to-top]');

@@ -9,7 +9,7 @@ export const site = {
   phoneDisplay: '+7 901 560-64-65',
   phoneHref: 'tel:+79015606465',
   // Основной мессенджер — MAX. Впишите ссылку на аккаунт/чат (из MAX: аватар → QR → «Поделиться»)
-  max: 'https://max.ru/znaylab',
+  max: 'https://max.ru/c/-71207716266030/AZ_VvMFcFns',
 
   // Офлайн-адрес филиала упоминаем только в контактах, футере и SEO-разметке
   address: 'г. Ликино-Дулёво, ул. Ленина, 3 (мкр. Дулёво, ТД «Дулёво», 2 этаж)',
@@ -47,7 +47,7 @@ export const site = {
   // id счётчика Яндекс.Метрики (число). Пустая строка — метрика отключена.
   metricaId: '111322374',
   // Ссылка на оплату в CRM. После оплаты CRM должна вернуть пользователя на сайт:
-  // успех — https://<домен>/oplata/uspekh, ошибка — https://<домен>/oplata/oshibka
+  // успех — https://<домен>/thanks, ошибка — https://<домен>/errorpay
   paymentUrl: '',
   // URL webhook для заявок — Google Apps Script (заявки в Google Таблицу + e-mail).
   // script.google.com не блокируется из РФ. doPost() в Apps Script обрабатывает запрос.
