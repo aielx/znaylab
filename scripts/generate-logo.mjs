@@ -43,19 +43,19 @@ ${emblemGroup({ mono })}
 }
 
 const wordmark = (color, sub, x) => `
-  <text x="${x}" y="60" font-family="Manrope, 'Golos Text', Inter, system-ui, sans-serif" font-weight="800" font-size="38" letter-spacing="1" fill="${color}">ЗНАЙЛАБ</text>
+  <text x="${x}" y="60" font-family="Manrope, 'Golos Text', Inter, system-ui, sans-serif" font-weight="800" font-size="34" letter-spacing="1" fill="${color}">Интеллект</text>
   <text x="${x + 1}" y="82" font-family="Manrope, 'Golos Text', Inter, system-ui, sans-serif" font-weight="500" font-size="13" letter-spacing="0.4" fill="${sub}">образовательный центр</text>`;
 
 const emblemW = Math.round(100 * (VB.w / VB.h)); // ≈ 82
 const logoW = emblemW + 20 + 240;
 
-const logo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${logoW} 100" role="img" aria-label="ЗнайЛаб — образовательный центр">
+const logo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${logoW} 100" role="img" aria-label="Интеллект — образовательный центр">
 ${emblem()}
 ${wordmark(COLORS.text, COLORS.sub, emblemW + 18)}
 </svg>
 `;
 
-const logoMono = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${logoW} 100" role="img" aria-label="ЗнайЛаб — образовательный центр">
+const logoMono = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${logoW} 100" role="img" aria-label="Интеллект — образовательный центр">
 ${emblem({ mono: true })}
 ${wordmark('currentColor', 'currentColor', emblemW + 18)}
 </svg>
@@ -101,12 +101,12 @@ ${bgRect}
 // ===== Эмблема без текста (только голова) — цветная и монохромная =====
 // viewBox = bounding box головы (VB), квадратный холст. Для отдельного использования:
 // иконки, аватары, печать, водяные знаки, favicon-замена.
-const emblemOnly = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" role="img" aria-label="Эмблема ЗнайЛаб">
+const emblemOnly = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" role="img" aria-label="Эмблема Интеллект">
 ${emblemGroup()}
 </svg>
 `;
 
-const emblemOnlyMono = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" role="img" aria-label="Эмблема ЗнайЛаб">
+const emblemOnlyMono = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB.x} ${VB.y} ${VB.w} ${VB.h}" role="img" aria-label="Эмблема Интеллект">
 ${emblemGroup({ mono: true })}
 </svg>
 `;
