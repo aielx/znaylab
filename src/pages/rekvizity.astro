@@ -24,6 +24,10 @@ const provider = site.paymentProvider || 'платёжный провайдер'
           <tr><th>Наименование</th><td>{L.entity}</td></tr>
           <tr><th>ИНН</th><td>{L.inn}</td></tr>
           <tr><th>ОГРНИП</th><td>{L.ogrnip}</td></tr>
+          <tr>
+            <th>Лицензия на образовательную деятельность</th>
+            <td>{L.license}, дата предоставления — {L.licenseDate}</td>
+          </tr>
           <tr><th>Юридический адрес</th><td>{L.legalAddress}</td></tr>
           <tr><th>Фактический адрес</th><td>{L.actualAddress}</td></tr>
           {L.checkingAccount && <tr><th>Р/с</th><td>{L.checkingAccount}</td></tr>}
@@ -34,6 +38,14 @@ const provider = site.paymentProvider || 'платёжный провайдер'
           <tr><th>Телефон</th><td><a href={site.phoneHref}>{site.phoneDisplay}</a></td></tr>
         </tbody>
       </table>
+
+      <h2>Документы</h2>
+      <p>
+        Лицензия на образовательную деятельность {L.license} —
+        <a href={L.licenseDoc} target="_blank" rel="noopener" type="application/pdf">выписка из реестра лицензий (PDF)</a>.
+        Все документы организации — в разделе
+        <a href="/svedenya">«Сведения об образовательной организации»</a>.
+      </p>
 
       <h2>Об оплате</h2>
       <p>

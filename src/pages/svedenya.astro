@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../content/site';
+
+const L = site.legal;
+// Порядок разделов и состав сведений — ст. 91 273-ФЗ «Об образовании в РФ»
+// и Правила размещения на официальном сайте (ПП РФ № 582).
+---
+
+<BaseLayout
+  title="Сведения об образовательной организации — ЗнайЛаб"
+  description="Основные сведения, лицензия на образовательную деятельность и документы образовательного центра ЗнайЛаб (ИП Логвинов А. С.)."
+  path="/svedenya"
+>
+  <Header />
+  <main id="main" class="section">
+    <div class="container legal">
+      <h1>Сведения об образовательной организации</h1>
+      <p class="legal__updated">
+        Раздел ведётся в соответствии со ст. 91 Федерального закона «Об образовании в Российской Федерации».
+      </p>
+
+      <h2>Основные сведения</h2>
+      <table class="req">
+        <tbody>
+          <tr><th>Наименование</th><td>{L.entity} · «ЗнайЛаб»</td></tr>
+          <tr><th>Организационно-правовая форма</th><td>Индивидуальный предприниматель</td></tr>
+          <tr><th>ИНН</th><td>{L.inn}</td></tr>
+          <tr><th>ОГРНИП</th><td>{L.ogrnip}</td></tr>
+          <tr><th>Адрес места нахождения</th><td>{L.legalAddress}</td></tr>
+          <tr><th>Адрес ведения деятельности</th><td>{L.actualAddress}</td></tr>
+          <tr><th>Телефон</th><td><a href={site.phoneHref}>{site.phoneDisplay}</a></td></tr>
+          <tr><th>E-mail</th><td><a href={`mailto:${L.email}`}>{L.email}</a></td></tr>
+          <tr><th>Режим работы</th><td>{site.hours}</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Сведения о лицензии на образовательную деятельность</h2>
+      <table class="req">
+        <tbody>
+          <tr><th>Регистрационный номер</th><td>{L.license}</td></tr>
+          <tr><th>Дата предоставления</th><td>{L.licenseDate}</td></tr>
+          <tr><th>Статус</th><td>Действует</td></tr>
+          <tr><th>Лицензируемый вид деятельности</th><td>{L.licenseSubtype}</td></tr>
+          <tr><th>Лицензирующий орган</th><td>{L.licenseIssuer}</td></tr>
+          <tr><th>Решение о предоставлении</th><td>{L.licenseOrder}</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="documents">Документы</h2>
+      <ul class="docs">
+        <li class="docs__item">
+          <div>
+            <p class="docs__title">Выписка из реестра лицензий {L.license}</p>
+            <p class="docs__meta">PDF · подписан электронной подписью лицензирующего органа</p>
+          </div>
+          <div class="docs__actions">
+            <a
+              class="docs__btn"
+              href={L.licenseDoc}
+              target="_blank"
+              rel="noopener"
+              type="application/pdf"
+              aria-label={`Просмотреть выписку из реестра лицензий ${L.license} в новой вкладке`}
+            >Просмотреть</a>
+            <a
+              class="docs__btn docs__btn--secondary"
+              href={L.licenseDoc}
+              download={L.licenseDocName}
+              aria-label={`Скачать выписку из реестра лицензий ${L.license}`}
+            >Скачать</a>
+          </div>
+        </li>
+      </ul>
+      <p class="legal__note">
+        Подлинность лицензии можно проверить в лицензирующем органе —
+        <a href="https://dogm.mos.ru" target="_blank" rel="noopener">{L.licenseIssuer}</a>.
+      </p>
+
+      <h2>Места осуществления образовательной деятельности</h2>
+      <ul class="legal__list">
+        <li>Место нахождения (по лицензии): {L.legalAddress}</li>
+        <li>Место ведения деятельности (филиал): {L.actualAddress}</li>
+      </ul>
+
+      <h2>Платные образовательные услуги</h2>
+      <p>
+        Образовательные услуги оказываются за счёт физических лиц по договору об образовании.
+        Условия и стоимость — в <a href="/oferta">публичной оферте</a> и в разделе
+        <a href="/#prices">«Расписание и цены»</a>. Порядок оплаты и возврата — на странице
+        <a href="/oplata">«Оплата и возврат»</a>. Реквизиты для оплаты — на странице
+        <a href="/rekvizity">«Реквизиты»</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal { max-width: 780px; }
+  .legal h1 { margin-bottom: 8px; }
+  .legal__updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+  .legal h2 { font-size: 22px; margin: 34px 0 12px; }
+  .legal p { color: var(--muted); }
+  .legal__note { font-size: 14.5px; margin-top: 14px; }
+  .legal__list { color: var(--muted); padding-left: 20px; display: grid; gap: 8px; }
+  .req {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+  .req th,
+  .req td {
+    text-align: left;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .req th {
+    width: 220px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--surface);
+  }
+  .req td { color: var(--text); font-weight: 600; word-break: break-word; }
+  .req a { color: var(--blue-dark); }
+  .docs { display: grid; gap: 14px; padding: 0; list-style: none; }
+  .docs__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  .docs__title { font-weight: 600; color: var(--text); }
+  .docs__meta { font-size: 13.5px; margin-top: 2px; }
+  .docs__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .docs__btn {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 9px;
+    background: var(--blue-dark);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14.5px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .docs__btn:hover { opacity: 0.88; }
+  .docs__btn--secondary {
+    background: transparent;
+    color: var(--blue-dark);
+    box-shadow: inset 0 0 0 1.5px var(--blue-dark);
+  }
+  @media (max-width: 620px) {
+    .req th { width: 150px; font-size: 14px; }
+    .req td { font-size: 15px; }
+    .docs__item { flex-direction: column; align-items: flex-start; }
+  }
+</style>

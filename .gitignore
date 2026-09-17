@@ -8,3 +8,5 @@ dist/
 # public/images и public/brand уже содержат готовые (сгенерированные) ассеты.
 intellect/
 
+.qlaude/
+.zcode/plans/
